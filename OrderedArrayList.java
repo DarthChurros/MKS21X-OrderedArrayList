@@ -10,9 +10,12 @@ public class OrderedArrayList<T extends Comparable<T>> extends NoNullArrayList<T
   }
 
   public boolean add(T val) {
+    if (val == null) {
+      throw new IllegalArgumentException("Failed to add null to OrderedArrayList");
+    }
     for (int i = 0; i < size(); i++) {
-      if (val.compareTo(get(i)) >= 0) {
-        super.add(val);
+      if (val.compareTo(get(i)) <= 0) {
+        super.add(i, val);
         return true;
       }
     }
@@ -25,6 +28,9 @@ public class OrderedArrayList<T extends Comparable<T>> extends NoNullArrayList<T
   }
 
   public T set(int index, T val) {
+    if (val == null) {
+      throw new IllegalArgumentException("Failed to add null to OrderedArrayList");
+    }
     T del = remove(index);
     add(val);
     return del;
